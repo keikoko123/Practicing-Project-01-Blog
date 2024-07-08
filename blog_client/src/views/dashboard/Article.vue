@@ -1,12 +1,31 @@
 <template>
   <div>Article</div>
 
-  <n-card title="歌曲" style="margin-bottom: 16px">
+  <n-card title="文章管理" style="margin-bottom: 16px">
 
-    <n-tabs default-value="oasis" justify-content="start" type="line">
+    <n-tabs default-value="list" justify-content="start" type="line">
 
-      <n-tab-pane name="oasis" tab="Oasis"> Wonderwall 
+      <n-tab-pane name="list" tab="文章列表" > Wonderwall 
+          <div v-for="(blogItem, index) in blogListInfo" style="margin-bottom:15px">
 
+            <n-card :title="blogItem.title" >
+                {{ blogItem.content }}
+
+
+                
+                  <template #footer>
+                    <n-space align="center">
+                      <div>發布時間:{{blogItem.create_time}}</div>
+                      <n-button type="primary" @click="edit(blogItem)">編輯</n-button>
+                      <n-button type="error" @click="del(blogItem)">刪除</n-button>
+
+
+                    </n-space>
+                </template>
+            </n-card>
+
+
+          </div>
 
       </n-tab-pane>
 
@@ -77,9 +96,15 @@ const addArticleObj = reactive({
 
 
 
+
 const options_category = ref([]);
+
+const blogListInfo = ref([])
+
 onMounted(()=>{
   loadCategoryList();
+
+  loadBlogList();
 })
 
 const loadCategoryList = async () => {
@@ -90,6 +115,25 @@ const loadCategoryList = async () => {
     return { label: item.name, value: item.id };
   });
   console.log(options_category);
+};
+
+const loadBlogList = async () => {
+  const res = await axios.get("/blog/search");
+
+
+  // 
+  let temp_rows = res.data.data.rows;
+
+  for(let row of temp_rows){
+    row.content += "....";
+    let d = new Date(row.create_time);
+    // row.create_time = d.toLocaleString();
+    row.create_time = `${d.getFullYear()}年-${d.getMonth() + 1}月-${d.getDate()}日 | ${d.getHours()}:${d.getMinutes()}:${d.getSeconds()}`;
+  }
+  //  
+  blogListInfo.value = res.data.data.rows;
+  console.log(res);
+  console.log(res.data.data.rows);
 };
 
 

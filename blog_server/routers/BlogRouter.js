@@ -183,7 +183,11 @@ router.get("/search", async (req, res) => {
 
 
     //查X分頁的數據
-    let searchSubPageSQL = "SELECT * FROM `blog` " + whereSqlsStr + " ORDER BY `create_time` DESC LIMIT ?, ?"
+    // let searchSubPageSQL = "SELECT * FROM `blog` " + whereSqlsStr + " ORDER BY `create_time` DESC LIMIT ?, ?"
+    // let searchSubPageSQL = "SELECT `id` ,`category_id` ,`title`, substr(`content`, 0, 50) AS `content`, `content` FROM `blog` " + whereSqlsStr + " ORDER BY `create_time` DESC LIMIT ?, ?"
+    let searchSubPageSQL = "SELECT `id` ,`category_id` ,`title`,  `create_time`, substr(`content`, 0, 50) AS `content` FROM `blog` " + whereSqlsStr + " ORDER BY `create_time` DESC LIMIT ?, ?"
+
+
     // 1 10  |  2 10  |   3  5
     // 0 10  | 10 10  |  10  5
 
