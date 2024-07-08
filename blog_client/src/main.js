@@ -22,6 +22,7 @@ axios.defaults.baseURL = 'http://localhost:8080'
 // import App from './App.vue'
 const app = createApp(App)
 app.provide('axios', axios)
+app.provide('server_url', axios.defaults.baseURL)
 
 // import { createDiscreteApi,} from 'naive-ui'
 const { message, notification, dialog } = createDiscreteApi(

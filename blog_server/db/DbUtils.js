@@ -64,3 +64,31 @@ blogDB.async.run = (sql, params) => {
 
 module.exports = { blogDB, genID };
 
+
+
+// const sqlite3 = require("sqlite3").verbose()
+// const path = require("path")
+// const GenId = require("../utils/SnowFlake")
+
+// var blogDB = new sqlite3.Database(path.join(__dirname, "blog.sqlite3"))
+// const genID = new GenId({ WorkerId: 1 })
+
+// blogDB.async = {}
+
+// blogDB.async.all = (sql, params) => {
+//   return new Promise((resolve, reject) => {
+//     blogDB.all(sql, params, (err, rows) => {
+//       resolve({ err, rows })
+//     })
+//   })
+// }
+
+// blogDB.async.run = (sql, params) => {
+//   return new Promise((resolve, reject) => {
+//     blogDB.run(sql, params, (err, rows) => {
+//       resolve({ err, rows })
+//     })
+//   })
+// }
+
+// module.exports = { blogDB, genID }
