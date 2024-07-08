@@ -6,6 +6,7 @@ const { blogDB, genID } = require("../db/DbUtils");
 
 const fs = require("fs");
 
+// https://www.wangeditor.com/v5/menu-config.html#%E6%9C%8D%E5%8A%A1%E7%AB%AF%E5%9C%B0%E5%9D%80 
 router.post("/rich_editor_upload", async (req, res) => {
 
     console.log(req.files)
@@ -37,10 +38,17 @@ router.post("/rich_editor_upload", async (req, res) => {
 
     }
 
+    // res.send({
+    //     code: 200,
+    //     data: {
+    //         "url": ret_files[0]
+    //     }
+    // })
+
     res.send({
-        code: 200,
-        data: {
-            "url": ret_files[0]
+        "errno": 0, // 注意：值是数字，不能是字符串
+        "data": {
+            "url": ret_files[0], // 图片 src ，必须
         }
     })
 })
