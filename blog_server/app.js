@@ -56,7 +56,7 @@ app.use(express.static(path.join(__dirname, "public"))); //指定靜態資源路
 const ADMIN_TOKEN_PATH = "/_token"
 app.all("*", async (req, res, next) => {
   // console.log(req.path.indexOf(ADMIN_TOKEN_PATH))
-  console.log(req.headers)
+  console.log(req.body)
   console.log(req.token)
 
   if (req.path.indexOf(ADMIN_TOKEN_PATH) > -1) {
@@ -95,7 +95,7 @@ app.all("*", async (req, res, next) => {
 app.use("/test", require("./routers/TestRouter"));
 app.use("/admin", require("./routers/AdminRouter"));
 app.use("/category", require("./routers/CategoryRouter"));
-app.use("/blog123456", require("./routers/BlogRouter"));
+app.use("/blog", require("./routers/BlogRouter"));
 app.use("/upload", require("./routers/UploadRouter"));
 
 

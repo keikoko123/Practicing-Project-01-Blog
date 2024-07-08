@@ -13,7 +13,7 @@ router.post("/rich_editor_upload", async (req, res) => {
     if (!req.files) {
         res.send({
             "errno": 1, // 只要不等于 0 就行
-            "message": "失败信息"
+            "message": "UPLOAD PHOTO IS FAILED, Check the request body is no problem "
         })
         return
     }

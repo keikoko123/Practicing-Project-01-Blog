@@ -15,16 +15,25 @@
         <n-form>
 
           <n-form-item label="title" >
-            <n-input v-model:value="addArticle.title"   placeholder="输入標題"   />
+            <n-input v-model:value="addArticleObj.title"   placeholder="输入標題"   />
           </n-form-item>
+
+          <n-form-item label="分類" >
+            <n-select v-model:value="addArticleObj.category_id"  :options="options_category" />
+          </n-form-item>
+
+
   
           <n-form-item label="content" >
-            <rich-text-editor v-model="addArticle.content">
-
+             <rich-text-editor v-model="addArticleObj.content">
              </rich-text-editor>
           </n-form-item>
 
           
+          <n-form-item label="" >
+            <n-button type="primary" @click="add">添加文章</n-button>
+            <!-- </rich-text-editor> -->
+         </n-form-item>
 
         </n-form>
       </n-tab-pane>
@@ -38,7 +47,7 @@
 
     </n-tabs>
   </n-card>
-  {{ addArticle.content }}
+  {{ addArticleObj.content }}
 </template>
 
 <script setup>
@@ -60,13 +69,51 @@ import RichTextEditor from "../../components/RichTextEditor.vue";
 
 
 const showAddModel = ref(false);
-
-const categoryList = ref([]);
-const addArticle = reactive({
+const addArticleObj = reactive({
   category_id:0,
   title: "",
   content:"hello",
 });
+
+
+
+const options_category = ref([]);
+onMounted(()=>{
+  loadCategoryList();
+})
+
+const loadCategoryList = async () => {
+  const res = await axios.get("/category/list");
+  console.log(res.data.rows);
+  // categoryList.value = res.data;
+  options_category.value = res.data.rows.map((item) => {
+    return { label: item.name, value: item.id };
+  });
+  console.log(options_category);
+};
+
+
+
+const add = async () => {
+  let result = await axios.post(
+    "/blog/_token/add",
+    addArticleObj
+ );
+
+  console.log(result);
+  if(result.data.code == 200){
+    message.info("添加成功" , result.data.message);
+    
+    // addArticleObj.data = { ...initialState}
+    addArticleObj.title = "";
+    addArticleObj.category_id = 0;
+    addArticleObj.content = ""; //雖然有用， 但是textarea 內並沒有清空 
+  }else{
+    message.error("添加失敗", result.data.message);
+  }
+  // showAddModel.value = false;
+};
+
 
 
 </script>
