@@ -112,10 +112,62 @@ router.delete("/_token/delete", async (req, res) => {
 
 
 
+//4 查詢BLOG - FOR ONE
+router.get("/_token/serachOne", async (req, res) => {
+    let { id } = req.query
+    let detail_sql = "SELECT * FROM `blog` WHERE `id` = ?"
+    let { err, rows } = await blogDB.async.all(detail_sql, [id])
+
+
+    if (err === null) {
+        res.send({
+            code: 200,
+            msg: "RETURN DATA succeed",
+            rows
+        })
+        // {
+        //     "code": 200,
+        //     "msg": "DELETE category succeed"
+        // }
+    } else {
+        res.send({
+            code: 500,
+            msg: "RETURN DATA  failed"
+        })
+    }
+}
+)
+
+
+router.get("/serachOneForView", async (req, res) => {
+    let { id } = req.query
+    let detail_sql = "SELECT * FROM `blog` WHERE `id` = ?"
+    let { err, rows } = await blogDB.async.all(detail_sql, [id])
+
+
+    if (err === null) {
+        res.send({
+            code: 200,
+            msg: "RETURN DATA succeed",
+            rows
+        })
+        // {
+        //     "code": 200,
+        //     "msg": "DELETE category succeed"
+        // }
+    } else {
+        res.send({
+            code: 500,
+            msg: "RETURN DATA  failed"
+        })
+    }
+}
+)
 
 
 
-//4 查詢BLOG
+
+//4 查詢BLOG - FOR ALL
 /* 
     keyword
     search part2 - title

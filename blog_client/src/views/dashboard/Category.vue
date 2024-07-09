@@ -182,8 +182,8 @@ const deleteCategory = async (categoryItem) => {
           onNegativeClick: () => {
             // message.error('不确定')
           }
-        })
-
+        }
+  )
 };
 
 

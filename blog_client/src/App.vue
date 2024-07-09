@@ -1,8 +1,8 @@
 <template>
-  <div>LESSON 1</div>
+  <div>Father | APP.VUE</div>
   <hr />
   <n-message-provider>
-    <router-view></router-view>
+    Children | <router-view></router-view>
     <!-- { path: '/test123',  component: () => import('../views/Test.vue') },  -->
   </n-message-provider>
   <hr />
